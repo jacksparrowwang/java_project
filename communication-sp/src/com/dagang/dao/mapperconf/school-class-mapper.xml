@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dagang.dao.SchoolClassMapper">
+
+    <sql id="sc">
+        (dateTime,classId,createTUid,className,schoolName,createPhoneNumber,schoolAddress,classDesc)
+    </sql>
+
+    <insert id="insert" parameterType="com.dagang.model.SchoolClass">
+        INSERT INTO school_class <include refid="sc"/> VALUES (#{dateTime},#{classId},#{createTUid},#{className},#{schoolName},#{createPhoneNumber},#{schoolAddress},#{classDesc})
+    </insert>
+
+    <select id="queryClassInfo" resultType="SchoolClass">
+        SELECT * FROM school_class WHERE (schoolAddress=#{schoolAddress}
+        <if test="schoolName!=null and schoolName.length()>0">
+            AND schoolName LIKE "%"#{schoolName}"%"
+        </if>
+        <if test="className!=null and className.length()>0">
+            AND className LIKE "%"#{className}"%"
+        </if>)
+
+    </select>
+
+    <select id="isExistClass" resultType="Integer">
+        SELECT classId FROM school_class WHERE (schoolAddress=#{schoolAddress}
+         AND schoolName=#{schoolName} AND className=#{className})
+    </select>
+</mapper>

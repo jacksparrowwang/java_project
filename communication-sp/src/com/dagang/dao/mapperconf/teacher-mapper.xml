@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dagang.dao.TeacherMapper">
+
+    <!--写resultMap的样例-->
+    <!--<resultMap type="com.fuchanghai.mybatis.pojo.Employee" id="BaseResultMap">-->
+    <!--<id jdbcType="BIGINT" column="id" property="id"/>-->
+    <!--<result jdbcType="VARCHAR" column="sname" property="sname"/>-->
+    <!--<result jdbcType="INTEGER" column="sno" property="sno"/>-->
+    <!--<result jdbcType="VARCHAR" column="password" property="password"/>-->
+    <!--<result jdbcType="INTEGER" column="power" property="power"/>-->
+    <!--</resultMap>-->
+
+    <sql id="teacher">
+        (dateTime,tUid,teaName,tPhoneNumber,password,gender,role,idType,tDesc)
+    </sql>
+
+    <select id="findTeacherByTPhoneNumber" parameterType="String" resultType="Teacher">
+        SELECT * FROM teacher WHERE tPhoneNumber=#{tPhoneNumber}
+    </select>
+
+    <insert id="insert" parameterType="Teacher">
+        INSERT INTO teacher <include refid="teacher"/> VALUES
+        (#{dateTime},#{tUid},#{teaName},#{tPhoneNumber},#{password},#{gender},#{role},#{idType},#{tDesc})
+    </insert>
+
+    <select id="login" resultType="Teacher">
+        SELECT * FROM teacher WHERE(tPhoneNumber=#{tPhoneNumber} and password=#{password})
+    </select>
+</mapper>
