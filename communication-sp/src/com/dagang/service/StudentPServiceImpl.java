@@ -84,4 +84,13 @@ public class StudentPServiceImpl implements StudentPService{
         }
         return true;
     }
+
+    @Override
+    public StudentParent queryStuByPhoneAndPass(String parentPhoneNumber, String password) {
+        StudentParent studentParent = studentParentMapper.login(parentPhoneNumber,password);
+        if (studentParent == null) {
+            return null;
+        }
+        return studentParent;
+    }
 }

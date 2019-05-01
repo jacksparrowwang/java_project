@@ -2,6 +2,8 @@ package com.dagang.controller;
 
 import cn.dsna.util.images.ValidateCode;
 import com.dagang.Util.EventUtil;
+import com.dagang.model.StudentParent;
+import com.dagang.model.Teacher;
 import com.dagang.service.StudentPService;
 import com.dagang.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,20 +50,23 @@ public class LoginController {
             return "registerFailed";
         }
         int iden = Integer.parseInt(identity);
-        boolean flag = true;
         if (iden == 0) {
             // 学生家长
-            flag = studentPService.login(phoneNumber, password);
+            StudentParent studentParent = studentPService.queryStuByPhoneAndPass(phoneNumber, password);
+            if (studentParent == null) {
+                return "registerFailed";
+            }
+            request.setAttribute("username",studentParent.getStudentName());
         } else if (iden == 1) {
             // 老师
-            flag = teacherService.login(phoneNumber,password);
+            Teacher teacher = teacherService.queryTeacherByPhonAndPass(phoneNumber,password);
+            if (teacher == null) {
+                return "registerFailed";
+            }
+            request.setAttribute("username",teacher.getTeaName());
         } else {
             // 出现错误
             return "500";
-        }
-
-        if (!flag) {
-            return "registerFailed";
         }
         // 设置session
        EventUtil.setCookieAndSession(request,response,phoneNumber,password,identity);
@@ -95,4 +100,5 @@ public class LoginController {
             e.printStackTrace();
         }
     }
+
 }

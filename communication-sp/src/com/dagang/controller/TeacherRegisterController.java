@@ -44,7 +44,7 @@ public class TeacherRegisterController {
         boolean result = teacherService.createTeacher(teacher);
         if (result) {
             // TODO
-            // 这里是因为注册好老师后就可以直接进行创建班级
+            // 设置cookie和session
             EventUtil.setCookieAndSession(request,response,tPhoneNumber,password,"1");
             // 老师注册成功后就需要进行选择班级，如果没有就进行创建班级，学生是在最后由老师进行班级的选择
             return "registerSuccessTeacher"; // 这里返回页面需要修改

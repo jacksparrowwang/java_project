@@ -69,10 +69,10 @@ public class TeacherServiceImpl implements TeacherService {
         System.out.println(teacherList);
 
         if (teacherList.isEmpty()) {
-            log.info("isExist:user can login");
+            log.info("isExist:user can create");
             return false;
         }
-        log.info("isExist:user not login");
+        log.info("isExist:user not create");
         return true;
     }
 

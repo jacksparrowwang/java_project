@@ -15,7 +15,7 @@ public interface SchoolClassMapper {
                                             @Param("schoolName")String schoolName,
                                             @Param("className")String className);
 
-    public Integer isExistClass(@Param("schoolAddress")String schoolAddress,
+    public List<Integer> isExistClass(@Param("schoolAddress")String schoolAddress,
                                 @Param("schoolName")String schoolName,
                                 @Param("className")String className);
 }

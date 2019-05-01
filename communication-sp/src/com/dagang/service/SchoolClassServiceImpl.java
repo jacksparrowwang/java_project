@@ -50,8 +50,9 @@ public class SchoolClassServiceImpl implements SchoolClassService{
                 || className == null || className.isEmpty()) {
             // 这里就是个异常了
         }
-        Integer result = schoolClassMapper.isExistClass(schoolAddress,schoolName,className);
-        if (result == null) {
+        List<Integer> result = schoolClassMapper.isExistClass(schoolAddress,schoolName,className);
+        System.out.println("result"+result);
+        if (result == null || result.isEmpty()) {
             // false 表示不存在该班级
             return false;
         }

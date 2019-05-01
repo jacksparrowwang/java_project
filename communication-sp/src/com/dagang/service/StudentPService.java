@@ -16,4 +16,6 @@ public interface StudentPService {
     public boolean isStudentP();
 
     public boolean login(String parentPhoneNumber, String password);
+
+    public StudentParent queryStuByPhoneAndPass(String parentPhoneNumber, String password);
 }

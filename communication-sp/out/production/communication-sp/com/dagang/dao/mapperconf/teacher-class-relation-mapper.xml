@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dagang.dao.TeacherClassRelationMapper">
+    <!--批量插入-->
+    <!--<insert id="add" parameterType="EStudent">-->
+        <!--<foreach collection="list" item="item" index="index" separator=";">-->
+            <!--INSERT INTO TStudent(name,age) VALUES(#{item.name}, #{item.age})-->
+        <!--</foreach>-->
+    <!--</insert>-->
+
+    <sql id="tcr">
+        (dateTime,tUid,classId,role,teaName,tPhoneNumber,className,createTUid)
+    </sql>
+
+    <insert id="insertClassTeaRelat" parameterType="com.dagang.model.TeacherClassRelation">
+        INSERT INTO teacher_class_relation <include refid="tcr"/> VALUES (#{dateTime},#{tUid},#{classId},#{role},#{teaName},#{tPhoneNumber},#{className},#{createTUid})
+    </insert>
+
+</mapper>
