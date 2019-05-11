@@ -14,4 +14,7 @@ public interface StudentParentMapper {
     public List<StudentParent> findStudentPByPhoneNumber(String parentPhoneNumber);
 
     public StudentParent login(@Param("parentPhoneNumber")String parentPhoneNumber, @Param("password") String password);
+
+    public String[] queryUserNameByPN(String parentPhoneNumber);
+
 }

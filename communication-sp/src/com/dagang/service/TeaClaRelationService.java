@@ -2,6 +2,8 @@ package com.dagang.service;
 
 import com.dagang.model.SchoolClass;
 
+import java.util.Map;
+
 /**
  * @auther wangchenggang
  * @Date 2019/4/20 13:19
@@ -13,4 +15,8 @@ public interface TeaClaRelationService {
 
     // 当老师创建了班级就会进行一次自动的绑定班级
     public boolean autoBindClass(SchoolClass schoolClass, String tPhoneNumber);
+
+    public boolean isExitOfCorrespondence(Integer tuid);
+
+    public Map<Integer,String> queryClassIdAndClassNameByPhone(String phone);
 }

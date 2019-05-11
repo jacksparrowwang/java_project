@@ -86,6 +86,7 @@
     </script>
 </head>
 <body>
+<div style="text-align: center;">
 <div>
     <input type="button" value="学生家长注册" onclick="chengeStudent()"/>
     <input type="button" value="老师注册" onclick="chengeTeacher()"/>
@@ -94,13 +95,13 @@
     <h3>学生家长注册</h3>
 <%--学生家长注册信息表--%>
     <form action="/studentRegister" method="post" onsubmit="return checkStudentParentInfo()">
-学生姓名：<input type="text" id="studentName" name="studentName"/><span id="stuNam" style="color:red;"></span><br>
-        学生家长手机号:<input type="text" id="parentPhoneNumber" name="parentPhoneNumber"/><span id="sppn" style="color:red;"></span><br>          
-        密  码:<input type="password" id="spassword" name="password"/><span id="spwd" style="color:red;"></span><br> 
-        确认密码:<input type="password" id="srepwd" name="srepwd"/><span id="spwdmeg" style="color:red;"></span><br>
+学生姓名：<input type="text" id="studentName" name="studentName"/><span id="stuNam" style="color:red;margin-top: 30px;"></span><br>
+        学生家长手机号:<input type="text" id="parentPhoneNumber" name="parentPhoneNumber" style="margin-top: 30px;"/><span id="sppn" style="color:red;"></span><br>          
+        密  码:<input type="password" id="spassword" name="password" style="margin-top: 30px;"/><span id="spwd" style="color:red;"></span><br> 
+        确认密码:<input type="password" id="srepwd" name="srepwd" style="margin: 30px;"/><span id="spwdmeg" style="color:red;"></span><br>
     性别：   男 <input type="radio" name="gender" value="1" checked>    女 <input type="radio" name="gender" value="0"><br>
-        学生介绍：<input type="text" name="studentDesc" width="150px" height="100px"/><br>
-        <input type="submit" value="提交"/>
+        学生介绍：<input type="text" name="studentDesc" width="150px" height="100px" style="margin-top: 30px;"/><br>
+        <input type="submit" value="提交" style="margin-top: 30px;"/>
     </form>
 </div>
 
@@ -109,14 +110,14 @@
     <h3>老师注册</h3>
 <%--老师注册信息表 --%>
     <form id="tea" action="/teachertRegister" method="post" onsubmit="return checkTeacherInfo()">
-        老师称呼:<input type="text" id="teaName" name="teaName"/><span id="tname" style="color:red;"></span><br>
-        老师手机号:<input type="text" id="tPhoneNumber" name="tPhoneNumber"/><span id="tpn" style="color:red;"></span><br>         
-        密  码:<input type="password" id="tpassword" name="password"/><span id="tpwd" style="color:red;"></span><br>  
-        确认密码:<input type="password" id="trepwd" name="trepwd"/><span id="tpwdmeg" style="color:red;"></span><br>
+        老师称呼:<input type="text" id="teaName" name="teaName"/><span id="tname" style="color:red;margin-top: 30px;"></span><br>
+        老师手机号:<input type="text" id="tPhoneNumber" name="tPhoneNumber" style="margin-top: 30px;"/><span id="tpn" sty4le="color:red;"></span><br>         
+        密  码:<input type="password" id="tpassword" name="password" style="margin-top: 30px;"/><span id="tpwd" style="color:red;"></span><br>  
+        确认密码:<input type="password" id="trepwd" name="trepwd" style="margin: 30px;"/><span id="tpwdmeg" style="color:red;"></span><br>
         老师职位:<input type="text" name="role"/><br>
         性别：   男 <input type="radio" name="gender" value="1" checked>    女 <input type="radio" name="gender" value="0"><br>
-        老师描述:<input type="text" name="tDesc" width="150px" height="100px"/><br>
-        <input type="submit" value="提交"/>
+        老师描述:<input type="text" name="tDesc" width="150px" height="100px" style="margin-top: 30px;"/><br>
+        <input type="submit" value="提交" style="margin-top: 30px;"/>
     </form>
 </div>
 
@@ -150,5 +151,10 @@
         <%--</tr>--%>
     <%--</table>--%>
 <%--</form>--%>
+</div>
 </body>
 </html>
+
+<style>
+
+</style>

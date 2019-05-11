@@ -18,7 +18,7 @@ public interface TeacherService {
     // 判断是否有已经有人用phoneNumber注册过了
     public boolean isExist(Teacher teacher) throws Exception;
 
-    public boolean isExist(String tPhoneNumber);
+    public String getUserNameByPhoneNumber(String tPhoneNumber);
 
     // 登陆时候进行判断是否登陆成功
     public boolean login(String phoneNumber, String password);

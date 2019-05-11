@@ -77,8 +77,15 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public boolean isExist(String tPhoneNumber) {
-        return false;
+    public String getUserNameByPhoneNumber(String tPhoneNumber) {
+        if (tPhoneNumber == null || tPhoneNumber.isEmpty()) {
+            System.out.println("参数为null"+tPhoneNumber);
+            return null;
+        }
+        String usernames = teacherMapper.queryUserNameByPhoneNm(tPhoneNumber);
+
+        System.out.println("user+++=++====+++++===++="+usernames);
+        return usernames;
     }
 
     // 判断登陆是否成功

@@ -153,8 +153,11 @@
         })
     </script>
 </head>
-<body>
-<select id="sel" onchange="chinaChange(this,document.getElementById('city'))" style=" width:10%; height:30px;line-height:30px; ">
+<body  background="../../img/createClassBackground.jpg;">
+<div style="text-align: center;">
+<h2 style="color: #ce8483">创建班级</h2>
+<div style="margin-top: 50px">
+<select id="sel" onchange="chinaChange(this,document.getElementById('city'))" style=" width:10%; height:30px;line-height:30px; margin-right: 20px">
     <option value ="请选择省份">请选择省份</option>
     <option value ="北京市">北京市 </option>
     <option value ="天津市">
@@ -191,14 +194,18 @@
     新疆维吾尔自治区</option><option value ="香港特别行政区">
     香港特别行政区</option><option value ="澳门特别行政区">
     澳门特别行政区</option>
-</select><br>
+</select>
 <select name="city" id="city" style=" width:10%; height:30px;line-height:30px; ">
     <option value ="请选择市区">请选择市区</option>
-</select>
-学校名称：<input id="schoolName" type="text" style="width:10%; height:30px;line-height:30px;"><br>
-班级名称：<input id="className" type="text" style="width:10%; height:30px;line-height:30px;"><br>
-班级描述：<input id="desc" type="text" style="width:20%; height:50px;line-height:50px;">
+</select><br>
+</div>
+<div style="margin-top: 30px">
+学校名称：<input id="schoolName" type="text" style="width:10%; height:30px;line-height:30px; margin-right: 20px">
+班级名称：<input id="className" type="text" style="width:10%; height:30px;line-height:30px; margin-right: 20px"><br><br>
+班级描述：<input id="desc" type="text" style="width:30%; height:30px;line-height:30px; margin-right: 20px"><br>
+</div><br>
 <%--<input type="button" value="检测是否存在班级" id="check" name="check"><br>--%>
-<input type="button" value="创建班级" id="create" name="create" style="width: 50px;height: 50px;">
+<input type="button" value="创建班级" id="create" name="create" style="width: 80px;height: 30px;">
+</div>
 </body>
 </html>

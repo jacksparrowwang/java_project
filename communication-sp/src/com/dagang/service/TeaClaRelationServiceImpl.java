@@ -8,7 +8,9 @@ import com.dagang.model.TeacherClassRelation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @auther wangchenggang
@@ -55,5 +57,36 @@ public class TeaClaRelationServiceImpl implements TeaClaRelationService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean isExitOfCorrespondence(Integer tuid) {
+
+        List<Integer> list = teacherClassRelationMapper.queryClassIdByTuid(tuid);
+
+        if (list == null || list.isEmpty()) {
+            return false;
+        }
+        // 有返回true, 没有对应的关系返回false
+        return true;
+    }
+
+    @Override
+    public Map<Integer, String> queryClassIdAndClassNameByPhone(String phone) {
+        if (phone == null || phone.isEmpty()) {
+            System.out.println("queryClassIdAndClassNameByPhone : parameter is null" + phone);
+            return null;
+        }
+        List<TeacherClassRelation> list = teacherClassRelationMapper.queryClassIDAndNameByPhone(phone);
+        System.out.println("哈哈哈哈哈哈"+list);
+        if (list == null || list.isEmpty()) {
+            return null;
+        }
+        Map<Integer,String> newMap = new HashMap();
+        for (TeacherClassRelation t : list) {
+            newMap.put(t.getClassId(), t.getClassName());
+        }
+        System.out.println("ahahhahahahahhahdasfkasdfscccdf"+newMap);
+        return newMap;
     }
 }

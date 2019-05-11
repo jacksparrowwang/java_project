@@ -14,6 +14,13 @@
     </listener>
 
     <!-- 配置：所有请求由SpringMVC管理 -->
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>/css/*</url-pattern>
+        <url-pattern>/img/*</url-pattern>
+        <url-pattern>/js/*</url-pattern>
+    </servlet-mapping>
+
     <servlet>
         <servlet-name>DispatcherServlet</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -21,7 +28,6 @@
             <param-name>contextConfigLocation</param-name>
             <param-value>classpath:resource/springmvc.xml</param-value>
         </init-param>
-
         <load-on-startup>1</load-on-startup>
     </servlet>
 

@@ -18,4 +18,17 @@
         INSERT INTO teacher_class_relation <include refid="tcr"/> VALUES (#{dateTime},#{tUid},#{classId},#{role},#{teaName},#{tPhoneNumber},#{className},#{createTUid})
     </insert>
 
+    <select id="queryClassIdByTuid" parameterType="Integer" resultType="Integer">
+        SELECT classId FROM teacher_class_relation WHERE tUid=#{tUid}
+    </select>
+
+    <resultMap id="classIdAndClassName" type="HashMap">
+        <result property="classId" column="classId" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        <result property="className" column="className" javaType="java.lang.String" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="queryClassIDAndNameByPhone" parameterType="String" resultType="com.dagang.model.TeacherClassRelation">
+        SELECT * FROM teacher_class_relation WHERE tPhoneNumber=#{tPhoneNumber}
+    </select>
+
 </mapper>

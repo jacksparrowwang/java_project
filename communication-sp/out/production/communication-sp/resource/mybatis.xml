@@ -10,12 +10,16 @@
         <typeAlias type="com.dagang.model.StudentParent" alias="StudentParent"/>
         <typeAlias type="com.dagang.model.Teacher" alias="Teacher"/>
         <typeAlias type="com.dagang.model.TeacherClassRelation" alias="TeacherClassRelation"/>
+        <typeAlias type="com.dagang.model.GroupMessagesql" alias="GroupMessagesql"/>
     </typeAliases>
     <mappers>
         <!-- 批量加载映射文件 -->
+
+        <!--逐一加载映射文件-->
         <mapper resource="com/dagang/dao/mapperconf/school-class-mapper.xml"/>
         <mapper resource="com/dagang/dao/mapperconf/student-parent-mapper.xml"/>
         <mapper resource="com/dagang/dao/mapperconf/teacher-mapper.xml"/>
         <mapper resource="com/dagang/dao/mapperconf/teacher-class-relation-mapper.xml"/>
+        <mapper resource="com/dagang/dao/mapperconf/group-messagesql-mapper.xml"/>
     </mappers>
 </configuration>

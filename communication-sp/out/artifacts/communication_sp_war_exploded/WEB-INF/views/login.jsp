@@ -10,8 +10,8 @@
 <html>
 <head>
     <title>登录页面</title>
-        <link rel="stylesheet" href="../../css/common_form.css">
-<script type="text/javascript">
+    <link rel="stylesheet" href="../../css/common_form.css" type="text/css">
+    <script type="text/javascript">
     function check(){
         document.getElementById("userPmg").innerHTML="";
         document.getElementById("pwd").innerHTML="";
@@ -92,7 +92,6 @@
     <%--身份:<input type="radio" name="identity" value="1">老师--%>
     <%--<input type="radio" name="identity" value="0" checked>学生家长<br/>--%>
     <%--<input type="submit" value="登录"> <button><a href="http://localhost:8080/register"></a>注册</button>--%>
-
 <%--</form>--%>
     <script src="../../js/common_form_test.js"></script>
 </body>

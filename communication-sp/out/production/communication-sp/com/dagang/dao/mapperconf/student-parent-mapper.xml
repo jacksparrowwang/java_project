@@ -21,4 +21,8 @@
         SELECT * FROM student_parent WHERE (parentPhoneNumber=#{parentPhoneNumber} and password=#{password})
     </select>
 
+    <select id="queryUserNameByPN" parameterType="String" resultType="String">
+        SELECT parentPhoneNumber student_parent WHERE parentPhoneNumber=#{parentPhoneNumber}
+    </select>
+
 </mapper>

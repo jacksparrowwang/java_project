@@ -93,4 +93,17 @@ public class StudentPServiceImpl implements StudentPService{
         }
         return studentParent;
     }
+
+    @Override
+    public String getUserNameByPhoneNu(String parentPhoneNumber) {
+        if (parentPhoneNumber == null || parentPhoneNumber.isEmpty()) {
+            return null;
+        }
+        String[] usernames =  studentParentMapper.queryUserNameByPN(parentPhoneNumber);
+        if (usernames.length > 1) {
+            System.out.println("学生表错误，产生了两个相同的手机号");
+            return null;
+        }
+        return usernames[0];
+    }
 }

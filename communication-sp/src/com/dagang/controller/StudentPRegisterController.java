@@ -37,7 +37,7 @@ public class StudentPRegisterController {
 
         boolean result = studentPService.createStudentP(studentParent);
         if (result) {
-            return "registerSuccessTeacher";
+            return "login";
         }
         return "registerFailed";
     }

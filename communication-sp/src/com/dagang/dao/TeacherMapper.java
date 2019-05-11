@@ -15,4 +15,6 @@ public interface TeacherMapper {
     // 这个是登陆用的，但是也可以进行查询这个人的信息，通过返回值来获取
     public Teacher login(@Param("tPhoneNumber")String tPhoneNumber, @Param("password") String password);
 
+    public String queryUserNameByPhoneNm(@Param("tPhoneNumber")String tPhoneNumber);
+
 }

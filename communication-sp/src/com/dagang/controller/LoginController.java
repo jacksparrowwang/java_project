@@ -5,6 +5,7 @@ import com.dagang.Util.EventUtil;
 import com.dagang.model.StudentParent;
 import com.dagang.model.Teacher;
 import com.dagang.service.StudentPService;
+import com.dagang.service.TeaClaRelationService;
 import com.dagang.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +30,9 @@ public class LoginController {
     @Autowired
     private StudentPService studentPService;
 
+    @Autowired
+    private TeaClaRelationService teaClaRelationService;
+
     @RequestMapping("/login")
     public String login() {
         return "/login";
@@ -43,7 +47,7 @@ public class LoginController {
         String vali = request.getParameter("clientCode").trim();
         String validateCode = (String) request.getSession().getAttribute("validateCode");
         if (!vali.equalsIgnoreCase(validateCode)) {
-            return "registerFailed";
+            return "loginFailed";
         }
         if (phoneNumber.isEmpty() || password.isEmpty()) {
             // TODO
@@ -54,24 +58,66 @@ public class LoginController {
             // 学生家长
             StudentParent studentParent = studentPService.queryStuByPhoneAndPass(phoneNumber, password);
             if (studentParent == null) {
-                return "registerFailed";
+                return "loginFailed";
             }
-            request.setAttribute("username",studentParent.getStudentName());
+            // 已经登陆成功，进行设置session
+            request.getSession().setAttribute("username",studentParent.getStudentName());
+            EventUtil.setCookieAndSession(request,response,phoneNumber,password,identity);
+
+            // 判断是否自己在班级内，也就是判断classId是否为-1
+            try {
+                if (!isExistClassOfStudent(studentParent)) {
+                    return "notifyTeacherAdd";
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else if (iden == 1) {
             // 老师
             Teacher teacher = teacherService.queryTeacherByPhonAndPass(phoneNumber,password);
             if (teacher == null) {
-                return "registerFailed";
+                return "loginFailed";
             }
-            request.setAttribute("username",teacher.getTeaName());
+            // 已经登陆成功，进行设置session
+            request.getSession().setAttribute("username",teacher.getTeaName());
+            EventUtil.setCookieAndSession(request,response,phoneNumber,password,identity);
+
+            // 查询老师和班级的关系表，看其中是都有老师所对应的班级，没有跳转至添加和创建页面
+            try {
+                if (!isExistClassOfTeacher(teacher)) {
+                    return "notifyTeacherCreateOrAdd";
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else {
             // 出现错误
             return "500";
         }
-        // 设置session
-       EventUtil.setCookieAndSession(request,response,phoneNumber,password,identity);
         // 登陆成功
-        return "communication";
+        return "chatgroup";
+    }
+
+    // 判断学生是否有所对应的班级
+    private boolean isExistClassOfStudent(StudentParent studentParent) throws Exception {
+        if (studentParent == null) {
+            throw new Exception("studentParent error");
+        }
+        if (studentParent.getClassId() == -1) {
+            return false;
+        }
+        return true;
+    }
+
+    // 判断老师是否有对应的班级
+    private boolean isExistClassOfTeacher(Teacher teacher) throws Exception {
+        if (teacher == null) {
+           throw new Exception("error :teacher is null");
+        }
+        if (!teaClaRelationService.isExitOfCorrespondence(teacher.gettUid())) {
+            return false;
+        }
+        return true;
     }
 
     @RequestMapping("/register")

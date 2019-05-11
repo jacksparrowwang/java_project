@@ -29,4 +29,8 @@
     <select id="login" resultType="Teacher">
         SELECT * FROM teacher WHERE(tPhoneNumber=#{tPhoneNumber} and password=#{password})
     </select>
+
+    <select id="queryUserNameByPhoneNm" parameterType="String" resultType="String">
+        SELECT teaName FROM teacher WHERE tPhoneNumber=#{tPhoneNumber}
+    </select>
 </mapper>
