@@ -54,59 +54,58 @@ public class LoginController {
             return "registerFailed";
         }
         int iden = Integer.parseInt(identity);
-        if (iden == 0) {
-            // 学生家长
-            StudentParent studentParent = studentPService.queryStuByPhoneAndPass(phoneNumber, password);
-            if (studentParent == null) {
-                return "loginFailed";
-            }
-            // 已经登陆成功，进行设置session
-            request.getSession().setAttribute("username",studentParent.getStudentName());
-            EventUtil.setCookieAndSession(request,response,phoneNumber,password,identity);
+        try {
+            if (iden == 0) {
+                // 学生家长
+                StudentParent studentParent = studentPService.queryStuByPhoneAndPass(phoneNumber, password);
+                if (studentParent == null) {
+                    return "loginFailed";
+                }
+                // 已经登陆成功，进行设置session
+                request.getSession().setAttribute("username",studentParent.getStudentName());
+                EventUtil.setCookieAndSession(request,response,phoneNumber,password,identity);
 
-            // 判断是否自己在班级内，也就是判断classId是否为-1
-            try {
-                if (!isExistClassOfStudent(studentParent)) {
+                // 判断是否自己在班级内，也就是判断classId是否为-1
+                int classId = isExistClassOfStudent(studentParent);
+                if (classId == -1) {
                     return "notifyTeacherAdd";
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else if (iden == 1) {
-            // 老师
-            Teacher teacher = teacherService.queryTeacherByPhonAndPass(phoneNumber,password);
-            if (teacher == null) {
-                return "loginFailed";
-            }
-            // 已经登陆成功，进行设置session
-            request.getSession().setAttribute("username",teacher.getTeaName());
-            EventUtil.setCookieAndSession(request,response,phoneNumber,password,identity);
+                request.setAttribute("classId", classId);
+                return "chatgroupstudent";
 
-            // 查询老师和班级的关系表，看其中是都有老师所对应的班级，没有跳转至添加和创建页面
-            try {
+            } else if (iden == 1) {
+                // 老师
+                Teacher teacher = teacherService.queryTeacherByPhonAndPass(phoneNumber,password);
+                if (teacher == null) {
+                    return "loginFailed";
+                }
+                // 已经登陆成功，进行设置session
+                request.getSession().setAttribute("username",teacher.getTeaName());
+                EventUtil.setCookieAndSession(request,response,phoneNumber,password,identity);
+
+                // 查询老师和班级的关系表，看其中是都有老师所对应的班级，没有跳转至添加和创建页面
                 if (!isExistClassOfTeacher(teacher)) {
                     return "notifyTeacherCreateOrAdd";
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
+                // 登陆成功
+                return "chatgroupteacher";
+            } else {
+                // 出现错误
+                return "500";
             }
-        } else {
-            // 出现错误
-            return "500";
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        // 登陆成功
-        return "chatgroup";
+        return "500";
     }
 
     // 判断学生是否有所对应的班级
-    private boolean isExistClassOfStudent(StudentParent studentParent) throws Exception {
+    // 返回-1表示没有班级，返回正数表示班级Id
+    private Integer isExistClassOfStudent(StudentParent studentParent) throws Exception {
         if (studentParent == null) {
             throw new Exception("studentParent error");
         }
-        if (studentParent.getClassId() == -1) {
-            return false;
-        }
-        return true;
+        return studentParent.getClassId();
     }
 
     // 判断老师是否有对应的班级

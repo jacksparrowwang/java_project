@@ -4,8 +4,17 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dagang.dao.GroupMessagesqlMapper">
 
+    <sql id="messageCol">
+        (date,sendId,classId,message,sendName, sendType,sendPhone,role)
+    </sql>
+
     <select id="queryMessageContentByClassId" parameterType="Integer" resultType="com.dagang.model.GroupMessagesql">
-        SELECT * FROM group_message WHERE classId=#{classId} ORDER BY id DESC
+        SELECT * FROM group_message WHERE classId=#{classId} ORDER BY id asc
     </select>
+
+    <insert id="insertGroupMessage" parameterType="com.dagang.model.GroupMessagesql">
+        INSERT INTO group_message <include refid="messageCol"/>
+        VALUES (#{date},#{sendId},#{classId},#{message},#{sendName},#{sendType},#{sendPhone},#{role})
+    </insert>
 
 </mapper>

@@ -94,7 +94,7 @@
                         for (var i = 0; i < ops.length; ++i) {
                             // var tml = "<p>地址:"+ops[i].schoolAddress+"学校:"+ops[i].schoolName + "班级:" + ops[i].className+"班级编码"+ops[i].classId+"</p><br>"
                             // $("#show").append(tml);
-                            var test = "<input id=\"teachClass\" type=\"checkbox\" name=\"teachClass\" value=\" "+ops[i].classId  + "\">地址:"+ops[i].schoolAddress+" 学校:"+ops[i].schoolName + " 班级:" + ops[i].className+"<br>"
+                            var test = "<input id=\"teachClass\" type=\"checkbox\" name=\"teachClass\" value=\" "+ops[i].classId  + "\">地址:"+ops[i].schoolAddress+" 学校:"+ops[i].schoolName + " 班级:" + ops[i].className+"<br>";
                             $("#show").append(test);
                         }
                     },

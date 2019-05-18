@@ -11,6 +11,7 @@
         <typeAlias type="com.dagang.model.Teacher" alias="Teacher"/>
         <typeAlias type="com.dagang.model.TeacherClassRelation" alias="TeacherClassRelation"/>
         <typeAlias type="com.dagang.model.GroupMessagesql" alias="GroupMessagesql"/>
+        <typeAlias type="com.dagang.model.FileUploadDownloadModel" alias="FileUploadDownloadModel"/>
     </typeAliases>
     <mappers>
         <!-- 批量加载映射文件 -->
@@ -21,5 +22,6 @@
         <mapper resource="com/dagang/dao/mapperconf/teacher-mapper.xml"/>
         <mapper resource="com/dagang/dao/mapperconf/teacher-class-relation-mapper.xml"/>
         <mapper resource="com/dagang/dao/mapperconf/group-messagesql-mapper.xml"/>
+        <mapper resource="com/dagang/dao/mapperconf/file-management-mapper.xml"/>
     </mappers>
 </configuration>

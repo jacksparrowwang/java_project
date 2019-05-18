@@ -26,4 +26,8 @@
     <select id="isExistClass" resultType="Integer">
         SELECT classId FROM school_class WHERE (schoolAddress=#{schoolAddress} AND schoolName=#{schoolName} AND className=#{className})
     </select>
+
+    <select id="queryClassNameById" parameterType="integer" resultType="String">
+        SELECT className FROM  school_class WHERE classId=#{classId}
+    </select>
 </mapper>

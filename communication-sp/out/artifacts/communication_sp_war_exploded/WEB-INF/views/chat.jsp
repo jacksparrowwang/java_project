@@ -28,19 +28,15 @@
                 </ul>
             </div>
             <div class="RightMiddle">
-                <div class="file">
-                    <img src="/img/file.jpg" height="30px" width="30px" onclick="fileSelect()">
-                    <form id="form_photo" method="post" enctype="multipart/form-data"
-                          style="width:auto;">
-
-                        <%--进行文件管理的跳转--%>
-
-                        <input type="file" name="filename" id="filename" onchange="fileSelected();"
-                               style="display:none;">
-                        <!-- <button id="fasongPhoto" name="fasongPhoto" class="sendBtn" type="submit"
-                        style="border-radius: 5px"></button> -->
-                    </form>
-                </div>
+                <%--<div class="file">--%>
+                    <%--<img src="/img/file.jpg" height="30px" width="30px" onclick="fileSelect()">--%>
+                    <%--<form id="form_photo" method="post" enctype="multipart/form-data"--%>
+                          <%--style="width:auto;">--%>
+                        <%--&lt;%&ndash;进行文件管理的跳转&ndash;%&gt;--%>
+                        <%--<input type="file" name="filename" id="filename" onchange="fileSelected();"--%>
+                               <%--style="display:none;">--%>
+                    <%--</form>--%>
+                <%--</div>--%>
             </div>
             <div class="RightFoot">
 
@@ -146,7 +142,7 @@
             mimeType: "multipart/form-data",
             data: form,
             headers: {
-                "cache-control": "no-cache",
+                "cache-control": "no-cache"
             },
             processData: false,
             contentType: false,

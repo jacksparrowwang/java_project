@@ -17,4 +17,10 @@ public interface StudentParentMapper {
 
     public String[] queryUserNameByPN(String parentPhoneNumber);
 
+    public int setClassId(@Param("parentPhoneNumber")String parentPhoneNumber,
+                          @Param("studentName")String studentName,
+                          @Param("classId")Integer classId );
+
+    public String[] queryUserNameByClassId(Integer classId);
+
 }

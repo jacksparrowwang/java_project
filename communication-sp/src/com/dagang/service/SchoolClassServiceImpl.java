@@ -59,4 +59,13 @@ public class SchoolClassServiceImpl implements SchoolClassService{
         // 存在该班级
         return true;
     }
+
+    @Override
+    public String findClassNameById(Integer classId) {
+        String result = schoolClassMapper.queryClassNameById(classId);
+        if (result == null || result.isEmpty()) {
+            System.out.println("findClassNameById:classId is"+result);
+        }
+        return result;
+    }
 }

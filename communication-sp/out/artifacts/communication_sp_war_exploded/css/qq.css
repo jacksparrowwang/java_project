@@ -11,7 +11,7 @@ body{
 padding:20px 0 0 30px;
 }
 .qqBox{
-	width: 798px;
+	width: 1000px;
 	height: 600px;
 	border: 1px solid #ccc;
 	position: absolute;
@@ -53,7 +53,7 @@ display: -webkit-box;
 -webkit-box-orient: horizontal;
 }
 .conLeft{
-	width: 200px;
+	width: 150px;
 	overflow: auto;
 	background: #2e3238;
 }
@@ -66,18 +66,22 @@ display: -webkit-box;
 	padding: 0;
 }
 .conLeft li{
+	/*width: 100%;*/
+	/*height: 62px;*/
+	/*display: -webkit-box;*/
+	/*-webkit-box-orient: horizontal;*/
+	/*border-bottom:1px solid #292c33;*/
 	width: 100%;
-	height: 62px;
-	display: -webkit-box;
+	height: 32px;
 	-webkit-box-orient: horizontal;
-	border-bottom:1px solid #292c33;
+	border-bottom: 1px solid #292c33;
 }
 
 .conLeft li.active{
 background-color:hsla(0,0%,100%,.1);
 }
 .conLeft li .liLeft{
-	width:30%;
+	width:100%;
 	height: 100%;
 }
 .liLeft img{
@@ -303,6 +307,11 @@ transform: scale(1.2);
 }
 .bg{
 	background: #ebebec;
+}
+.conRightDoc{
+	width: 200px;
+	overflow: auto;
+	/*background: #292c33;*/
 }
 
 

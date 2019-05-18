@@ -1,5 +1,6 @@
 package com.dagang.controller;
 
+import com.dagang.Util.RandomNameUtil;
 import com.dagang.model.GroupMessage;
 import com.dagang.model.MessageOnline;
 import com.dagang.service.StudentPService;
@@ -8,6 +9,7 @@ import com.dagang.service.TeacherService;
 import com.dagang.service.TeacherServiceImpl;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
@@ -37,6 +39,13 @@ public class WebSocketController {
     private static CopyOnWriteArraySet<WebSocketController> webSockets = new CopyOnWriteArraySet<>();
     private static Map<String, String> map = new HashMap<>();
 
+    private RandomNameUtil randomNameUtil = new RandomNameUtil();
+
+    @RequestMapping("/chat")
+    public String chat() {
+        return "chat";
+    }
+
     @OnOpen
     public void onOpen(Session session) {
         this.session = session;
@@ -45,9 +54,14 @@ public class WebSocketController {
         String s = session.getQueryString();
         String urlUsername = s.split("=")[1];
         try {
-            username = URLDecoder.decode(urlUsername, "UTF-8");
+            String niName = URLDecoder.decode(urlUsername, "UTF-8");
 // 给每条消息添加上classId进行判断是那个群里的，再进行筛选
             //把SessionID和用户名放进集合里面
+            username = randomNameUtil.selectName();
+            while (map.containsValue(niName)){
+                // 这里群里的人员不能超过51个人
+                username = randomNameUtil.selectName();
+            }
             map.put(session.getId(), username);
             System.out.println("有新的连接，总数：" + webSockets.size() + "  sessionId：" + session.getId() + "  " + username);
             String megs = username  + " 上线！";

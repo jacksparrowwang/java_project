@@ -22,7 +22,18 @@
     </select>
 
     <select id="queryUserNameByPN" parameterType="String" resultType="String">
-        SELECT parentPhoneNumber student_parent WHERE parentPhoneNumber=#{parentPhoneNumber}
+        SELECT studentName FROM student_parent WHERE parentPhoneNumber=#{parentPhoneNumber}
+    </select>
+
+    <update id="setClassId">
+        UPDATE student_parent SET classId=#{classId} where (parentPhoneNumber=#{parentPhoneNumber}
+        <if test="studentName!=null and studentName.length()>0">
+            AND studentName=#{studentName}
+        </if>)
+    </update>
+
+    <select id="queryUserNameByClassId" parameterType="integer" resultType="String">
+        SELECT studentName FROM student_parent WHERE classId=#{classId}
     </select>
 
 </mapper>

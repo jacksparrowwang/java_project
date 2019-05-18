@@ -9,4 +9,6 @@ public interface SchoolClassService {
     public String queryClassInfo(String queryAddress, String querySchool, String queryClass);
 
     public boolean isExistClass(String schoolAddress, String schoolName, String className);
+
+    public String findClassNameById(Integer classId);
 }

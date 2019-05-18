@@ -9,11 +9,11 @@
     </sql>
 
     <select id="queryMessageContentByClassId" parameterType="Integer" resultType="com.dagang.model.GroupMessagesql">
-        SELECT * FROM group_message WHERE classId=#{classId} ORDER BY id DESC
+        SELECT * FROM group_message WHERE classId=#{classId} ORDER BY id asc
     </select>
 
     <insert id="insertGroupMessage" parameterType="com.dagang.model.GroupMessagesql">
-        INSERT INTO insertGroupMessage <include refid="messageCol"/>
+        INSERT INTO group_message <include refid="messageCol"/>
         VALUES (#{date},#{sendId},#{classId},#{message},#{sendName},#{sendType},#{sendPhone},#{role})
     </insert>
 

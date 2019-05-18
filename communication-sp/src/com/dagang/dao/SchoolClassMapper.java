@@ -18,4 +18,6 @@ public interface SchoolClassMapper {
     public List<Integer> isExistClass(@Param("schoolAddress")String schoolAddress,
                                 @Param("schoolName")String schoolName,
                                 @Param("className")String className);
+
+    public String queryClassNameById(Integer classId);
 }

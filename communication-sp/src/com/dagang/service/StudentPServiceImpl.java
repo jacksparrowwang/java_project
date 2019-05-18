@@ -95,15 +95,55 @@ public class StudentPServiceImpl implements StudentPService{
     }
 
     @Override
-    public String getUserNameByPhoneNu(String parentPhoneNumber) {
+    public String[] getUserNameByPhoneNu(String parentPhoneNumber) {
         if (parentPhoneNumber == null || parentPhoneNumber.isEmpty()) {
             return null;
         }
         String[] usernames =  studentParentMapper.queryUserNameByPN(parentPhoneNumber);
-        if (usernames.length > 1) {
-            System.out.println("学生表错误，产生了两个相同的手机号");
+
+        return usernames;
+    }
+
+    @Override
+    public StudentParent findStudentByPhoneNumber(String phoneNumber) {
+        if (phoneNumber == null || phoneNumber.isEmpty()) {
+            System.out.println("StudentPServiceImpl:findStudentByPhoneNumber: parameter is null");
             return null;
         }
-        return usernames[0];
+
+        // 暂时不用
+
+        return null;
+    }
+
+    @Override
+    public boolean setClassIdByPhone(String phone,Integer classId, String userName) {
+        int result = studentParentMapper.setClassId(phone,userName, classId);
+        if (result == 1) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean setClassIdByPhone(String phone, Integer classId) {
+
+        int result = studentParentMapper.setClassId(phone,null,classId);
+        if (result == 1) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public String[] getClassMember(Integer classId) {
+
+        if (classId == null) {
+            System.out.println("getClassMember:parameter is null");
+            return null;
+        }
+        String[] result = studentParentMapper.queryUserNameByClassId(classId);
+        System.out.println(result);
+        return result;
     }
 }

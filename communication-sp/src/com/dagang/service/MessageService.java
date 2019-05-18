@@ -16,4 +16,5 @@ public interface MessageService {
 
     public GroupMessagesql sendGroupMessage(ClassMessagePOJO classMessagePOJO);
 
+
 }

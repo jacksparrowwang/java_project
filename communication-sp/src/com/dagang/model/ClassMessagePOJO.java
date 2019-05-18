@@ -45,4 +45,14 @@ public class ClassMessagePOJO {
     public void setIden(Integer iden) {
         this.iden = iden;
     }
+
+    @Override
+    public String toString() {
+        return "ClassMessagePOJO{" +
+                "classId=" + classId +
+                ", message='" + message + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", iden=" + iden +
+                '}';
+    }
 }
