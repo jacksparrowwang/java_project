@@ -12,7 +12,7 @@
 </head>
 <body>
 <h3>亲爱的老师，您现在还没有对应的班级，请选择添加班级或者创建班级</h3>
-<a href="/findClassId">添加班级</a>
+<a href="/findClassId" target="_blank">添加班级</a>
 <a href="/registerClass">创建班级</a>
 </body>
 </html>

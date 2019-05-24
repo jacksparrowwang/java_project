@@ -41,13 +41,28 @@ public class LoginController {
     // 接收登陆过来的参数
     @RequestMapping("/communication")
     public String Communication(HttpServletRequest request, HttpServletResponse response) {
-        String phoneNumber = request.getParameter("phoneNumber").trim();
-        String password = request.getParameter("password").trim();
-        String identity = request.getParameter("identity").trim();
-        String vali = request.getParameter("clientCode").trim();
-        String validateCode = (String) request.getSession().getAttribute("validateCode");
-        if (!vali.equalsIgnoreCase(validateCode)) {
-            return "loginFailed";
+        String phoneNumber = request.getParameter("phoneNumber");
+        String password = null;
+        String identity = null;
+        String vali = null;
+        String validateCode = null;
+        int fl = 1;
+        if (phoneNumber != null && !phoneNumber.isEmpty()) {
+            phoneNumber = phoneNumber.trim();
+            password = request.getParameter("password").trim();
+            identity = request.getParameter("identity").trim();
+            vali = request.getParameter("clientCode").trim();
+            validateCode = (String) request.getSession().getAttribute("validateCode");
+            fl = 2;
+        } else {
+            phoneNumber = (String) request.getSession().getAttribute("user");
+            password = (String) request.getSession().getAttribute("pass");
+            identity = (String) request.getSession().getAttribute("iden");
+            fl = 3;
+        }
+
+        if (vali != null && !vali.equalsIgnoreCase(validateCode) && fl == 2) {
+            return "checkCode";
         }
         if (phoneNumber.isEmpty() || password.isEmpty()) {
             // TODO

@@ -8,14 +8,18 @@
     </select>
 
     <sql id="file">
-        (date,fileName,classId, className, filePath, upLoadUserName, upLoadUserPhone)
+        (date,fileName,classId, className, filePath, upLoadUserName, upLoadUserPhone,md5)
     </sql>
 
     <insert id="insertFileInfo" parameterType="FileUploadDownloadModel">
-        INSERT INTO file_management <include refid="file"/> VALUES (#{date},#{fileName},#{classId},#{className},#{filePath},#{upLoadUserName},#{upLoadUserPhone})
+        INSERT INTO file_management <include refid="file"/> VALUES (#{date},#{fileName},#{classId},#{className},#{filePath},#{upLoadUserName},#{upLoadUserPhone},#{md5})
     </insert>
 
     <select id="selectClassFile" parameterType="integer" resultType="FileUploadDownloadModel">
         SELECT * FROM file_management WHERE classId=#{classId}
+    </select>
+
+    <select id="queryFileByfileNameAndmd5" resultType="String">
+        SELECT upLoadUserName FROM file_management WHERE (fileName=#{fileName} and md5=#{md5})
     </select>
 </mapper>

@@ -31,4 +31,12 @@ public interface FileSystemService {
      * @return 返回班级文件的信息
      */
     public List<FileUploadDownloadModel> queryFileInfoByClassId(Integer classId);
+
+    /**
+     *
+     * @param md5 校验参数
+     * @param fileName 文件名字
+     * @return 是否有相同的文件
+     */
+    public boolean isEqualsFile(String md5, String fileName);
 }

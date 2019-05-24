@@ -88,4 +88,9 @@
 <input type="button" value="添加" onclick="addMember()">
 
 </body>
+
+<div>
+    <h1>老师加入班级</h1>
+    <a href="/findClassId" target="_blank">添加班级</a>
+</div>
 </html>

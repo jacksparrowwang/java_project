@@ -20,4 +20,7 @@ public interface FileManagementMapper {
     public int insertFileInfo(FileUploadDownloadModel fileUploadDownloadModel);
 
     public List<FileUploadDownloadModel> selectClassFile(Integer classId);
+
+    public String queryFileByfileNameAndmd5(@Param("fileName") String fileName,
+                                            @Param("md5") String md5);
 }

@@ -105,8 +105,9 @@
                } else {
                    alert("发生错误");
                }
+
            },
-           error: function (e) {
+           error: function () {
                alert("请求错误");
            }
        });
@@ -134,8 +135,8 @@
                 } else {
                     $("#fileList").empty();
                     for (var i = 0; i < data.length; ++i) {
-                        var path = encodeURI(data[i].filePath);
-                        var name = encodeURI(data[i].fileName);
+                        var path = data[i].filePath;
+                        var name = data[i].fileName;
                         var htmstr = '<div>' + getLocalTime(data[i].date) + ' ' + data[i].fileName + ' '
                             + data[i].upLoadUserName +'<a href= "/fileDownload?filePath='+path+'&fileName='+name+'">下载</a>'+
                             '</div>';
@@ -166,7 +167,7 @@
 
     // 全局变量，进行记录访问的是哪个班级的
     var changeClassId = 0;
-    var changeName = "";
+    var changeName = "noclass";
 
     function setProperty() {
         console.log(changeName);

@@ -138,7 +138,7 @@
                             alert("班级创建成功，但是绑定班级失败，请到主页面添加代课班级")
                         }else if (ops == "36") {
                             alert("创建成功,并且绑定了班级");
-                                window.location.href="/login";
+                                window.location.href="/communication";
                         } else if(ops == "4") {
                             alert("创建失败，请重新登陆创建");
                         } else {

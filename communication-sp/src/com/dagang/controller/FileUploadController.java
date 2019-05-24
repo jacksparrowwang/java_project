@@ -17,6 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.security.MessageDigest;
 import java.util.List;
 
 /**
@@ -28,6 +31,8 @@ import java.util.List;
 public class FileUploadController extends HttpServlet {
 
     private FileSystemService fileSystemService = new FileSystemServiceImpl();
+    private static String[] hexDigits = new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c",
+            "d", "e", "f" };
 
     // 文件名字
     private String fileName;
@@ -39,6 +44,9 @@ public class FileUploadController extends HttpServlet {
     private String phone;
     // 上传人名字
     private String uploadUser;
+
+    // 文件内容信息摘要
+    private String md5;
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException,IOException {
@@ -49,6 +57,7 @@ public class FileUploadController extends HttpServlet {
             FileItemFactory factory = new DiskFileItemFactory();
             //3.创建文件上传对象
             ServletFileUpload fileUpload = new ServletFileUpload(factory);
+            fileUpload.setHeaderEncoding("UTF-8");
 
             //4.解析请求
             try{
@@ -71,7 +80,6 @@ public class FileUploadController extends HttpServlet {
             }
             // 表示成功
             resp.getWriter().write("1");
-            // 进行数据库操作
         }else {
             // 表示失败
             resp.getWriter().write("2");
@@ -89,12 +97,7 @@ public class FileUploadController extends HttpServlet {
         System.out.println(fileName +  ":" + item.getContentType());
 
         // 进行数据库查询，看是否有相同文件
-        int i = 0;
-        while (fileSystemService.isEqualsFileName(classId,fileName)) {
-            String suffix = fileName.split("\\.")[1];
-            fileName = fileName.split("\\.")[0] + "("+ i +")"+suffix;
-            ++i;
-        }
+
 
         //2.创建文件保存的文件夹
         folderPath = this.getServletContext().getRealPath("/WEB-INF/fileTest");
@@ -108,6 +111,19 @@ public class FileUploadController extends HttpServlet {
         //文件完整保存路径
         String filePath = folderPath + "/" + fileName;
         try {
+            // 进行MD5计算。
+            md5 = secondUpload(item.getString());
+
+            if (fileSystemService.isEqualsFile(md5,fileName)) {
+                return;
+            }
+            int i = 0;
+            while (fileSystemService.isEqualsFileName(classId,fileName)) {
+                String suffix = fileName.split("\\.")[1];
+                fileName = fileName.split("\\.")[0] + "("+ i +")."+suffix;
+                ++i;
+            }
+
             item.write(new File(filePath));
             item.delete();//删除临时文件
 
@@ -123,6 +139,44 @@ public class FileUploadController extends HttpServlet {
         }
     }
 
+    // 信息摘要，是按照某种规则生成一段哈希值，哈希值为128位
+    private String  secondUpload(String str) {
+        if (str == null || str.isEmpty()) {
+            return null;
+        }
+        String results = null;
+        try {
+            // 创建具有指定算法名称的信息摘要
+            MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+            // 使用指定的字节数组对摘要进行最后的更新，然后完成摘要计算
+            byte[] result = messageDigest.digest(str.getBytes());
+            results = byteArrayToHexString(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return results;
+    }
+
+    private static String byteArrayToHexString(byte[] b) {
+        StringBuffer resultsb = new StringBuffer();
+        int i = 0;
+        for (i = 0; i < b.length; i++) {
+            resultsb.append(byteToHexString(b[i]));
+        }
+        return resultsb.toString();
+    }
+
+    // 将字节转化成十六进制的字符串
+    private static String byteToHexString(byte b) {
+        int n = b;
+        if (n < 0) {
+            n = 256 + n;
+        }
+        int d1 = n / 16;
+        int d2 = n / 16;
+        return hexDigits[d1] + hexDigits[d2];
+    }
+
     private boolean insertFileInfo() {
         FileUploadDownloadModel fileUploadDownloadModel = new FileUploadDownloadModel();
         fileUploadDownloadModel.setClassId(classId);
@@ -131,6 +185,7 @@ public class FileUploadController extends HttpServlet {
         fileUploadDownloadModel.setFilePath(folderPath);
         fileUploadDownloadModel.setFileName(fileName);
         fileUploadDownloadModel.setUpLoadUserName(uploadUser);
+        fileUploadDownloadModel.setMd5(md5);
 
         if (!fileSystemService.insertFileInfo(fileUploadDownloadModel)) {
             return false;
@@ -138,7 +193,7 @@ public class FileUploadController extends HttpServlet {
         return true;
     }
 
-    private void processFormField(FileItem item) {
+    private void processFormField(FileItem item) throws UnsupportedEncodingException {
         String fieldName = item.getFieldName();
         String fieldValue = item.getString();
         if ("classId".equals(fieldName)) {
@@ -146,8 +201,8 @@ public class FileUploadController extends HttpServlet {
             classId = Integer.parseInt(fieldValue);
         }
         if ("uploadUser".equals(fieldName)) {
-            uploadUser = fieldValue;
+            uploadUser = item.getString("UTF-8");
         }
-        System.out.println(fieldName + ":" + fieldValue);
+        System.out.println(fieldName + ":" + uploadUser);
     }
 }

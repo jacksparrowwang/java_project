@@ -32,15 +32,13 @@ public class StudentGroupController {
 
     private ObjectMapper o = new ObjectMapper();
 
-    @RequestMapping(value = "/getClassMember",method = RequestMethod.GET)
+    @RequestMapping(value = "/getClassMember",method = RequestMethod.GET, produces = "application/json;charset=utf-8")
     public @ResponseBody String getClassMember(HttpServletRequest request) {
         String cl = request.getQueryString().split("=")[1];
         System.out.println(cl);
-
         Integer classId = Integer.parseInt(cl);
 
         String[] strings = studentPService.getClassMember(classId);
-
 
         String result = null;
         try {

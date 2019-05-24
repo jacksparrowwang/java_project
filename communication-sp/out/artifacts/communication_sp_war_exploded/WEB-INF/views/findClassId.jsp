@@ -108,7 +108,6 @@
     <script type="text/javascript">
         $(function() {
             $("#addClass").click(function () {
-                alert("xxxx");
                 var classIds = document.getElementsByName("teachClass");
                 var listClassId = [];
                 for (var i in classIds) {
@@ -132,7 +131,9 @@
                     },
                     traditional: true,
                     success: function (ops) {
-
+                        if (ops == "1") {
+                            alert("添加成功")
+                        }
                     },
                     error: function () {
                         alert("请求失败");
@@ -143,6 +144,9 @@
     </script>
 </head>
 <body>
+
+<div style="text-align: center;margin-top: 50px;">
+    <h1>查询添加班级</h1>
 <select id="sel" onchange="chinaChange(this,document.getElementById('city'))" style=" width:10%; height:30px;line-height:30px; ">
     <option value ="请选择市区">请选择省份</option>
     <option value ="北京市">北京市 </option>
@@ -184,11 +188,13 @@
 <select name="city" id="city" style=" width:10%; height:30px;line-height:30px; ">
     <option value ="请选择市区">请选择市区</option>
 </select>
+</div>
+<div style="text-align: center;margin-top: 20px;">
 学校名称：<input id="schoolName" type="text" style="width:10%; height:30px;line-height:30px;">
 班级名称：<input id="className" type="text" style="width:10%; height:30px;line-height:30px;">
 <input type="button" value="查询班级" id="query" name="query"><br>
 <span id="show" style="color: green;"></span><br>
 <input type="button" id="addClass" name="addClass" value="添加代课班级"><br>
-<input type="button" value="创建班级" onclick="location.href='http://localhost:8080/registerClass'">
+</div>
 </body>
 </html>

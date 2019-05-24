@@ -78,18 +78,17 @@ public class TeacherRegisterClassController {
     }
 
     @RequestMapping("/addClassIdOfTeacher")
-    public void addClassForTeacher(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public @ResponseBody String addClassForTeacher(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         // 判断是否是老师登陆状态，有cookie和session
         EventUtil.isLoginAndTeacher(request);
         String[] listClassId = request.getParameterValues("listClassId");
         String tPhoneNumber = (String) request.getSession().getAttribute("user");
         for (String classId : listClassId) {
-            // 要进行关系表的插入，并且要先判断建立关系的时候，问一下创建者。目前就先不考虑，就先进行一个判断是否为
-            // 创建者，如果是就直接插入不是就不行。后面再考虑询问创建者
-            // TODO
-            boolean result = teaClaRelationService.establishTeacherAndClassRelationships(tPhoneNumber, classId);
+            // 要进行关系表的插入，并且要先判断建立关系的时候，问一下创建者。
+            teaClaRelationService.establishTeacherAndClassRelationships(tPhoneNumber, classId);
         }
+        return "1";
     }
 
     @RequestMapping("/createClass")

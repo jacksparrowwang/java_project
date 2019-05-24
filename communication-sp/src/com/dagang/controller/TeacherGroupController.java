@@ -80,6 +80,10 @@ public class TeacherGroupController {
             e.printStackTrace();
         }
         System.out.println(query);
+        if ("0&noclass".equals(query)) {
+            // TODO
+            return "noselectclass";
+        }
         String[] strings = query.split("&");
         Integer classId = Integer.parseInt(strings[0]);
         String className = strings[1];
@@ -91,7 +95,7 @@ public class TeacherGroupController {
     }
 
 
-    @RequestMapping(value = "/queryName", method = RequestMethod.GET)
+    @RequestMapping(value = "/queryName", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
     public @ResponseBody
     String queryName(HttpServletRequest request) {
         String phone = request.getQueryString();
@@ -110,7 +114,7 @@ public class TeacherGroupController {
 
     @RequestMapping(value = "/addGroupMember", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
     public @ResponseBody
-    String addGroupMember(@RequestBody String query) {
+    String addGroupMember(@RequestBody String query, HttpServletRequest request) throws UnsupportedEncodingException {
         System.out.println("addGroupMember:" + query);
 
         String[] strings = query.split("&");
@@ -120,6 +124,7 @@ public class TeacherGroupController {
         String userName = strings[2].split("=")[1];
 
         Integer classId = Integer.parseInt(classIdstr);
+        userName = URLDecoder.decode(userName,"UTF-8");
         System.out.println(classId + "   " + addPhoneN + "   " + userName);
         // 进行设置
         boolean flag = false;

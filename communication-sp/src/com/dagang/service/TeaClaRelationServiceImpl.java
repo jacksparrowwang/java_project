@@ -1,5 +1,6 @@
 package com.dagang.service;
 
+import com.dagang.dao.SchoolClassMapper;
 import com.dagang.dao.TeacherClassRelationMapper;
 import com.dagang.dao.TeacherMapper;
 import com.dagang.model.SchoolClass;
@@ -25,8 +26,37 @@ public class TeaClaRelationServiceImpl implements TeaClaRelationService {
     @Autowired
     TeacherClassRelationMapper teacherClassRelationMapper;
 
+    @Autowired
+    SchoolClassMapper schoolClassMapper;
+
     @Override
     public boolean establishTeacherAndClassRelationships(String tPhoneNumber, String classId) {
+        if (tPhoneNumber == null || tPhoneNumber.isEmpty() || classId == null || classId.isEmpty()) {
+            return false;
+        }
+        // 查出相关信息进行拼装
+        List<Teacher> t = teacherMapper.findTeacherByTPhoneNumber(tPhoneNumber.trim());
+        if (t.isEmpty()) {
+            return false;
+        }
+        Teacher teacher = t.get(0);
+        Integer clId = Integer.parseInt(classId.trim());
+        SchoolClass schoolClass = schoolClassMapper.findClassInfoByClassId(clId);
+
+        // 这里要构建一个TeacherClassRelation
+        TeacherClassRelation teacherClassRelation = new TeacherClassRelation();
+        teacherClassRelation.setDateTime(System.currentTimeMillis());
+        teacherClassRelation.settUid(teacher.gettUid());
+        teacherClassRelation.setClassId(schoolClass.getClassId());
+        teacherClassRelation.setRole(teacher.getRole());
+        teacherClassRelation.setTeaName(teacher.getTeaName());
+        teacherClassRelation.settPhoneNumber(teacher.gettPhoneNumber());
+        teacherClassRelation.setClassName(schoolClass.getClassName());
+        teacherClassRelation.setCreateTUid(schoolClass.getCreateTUid());
+
+        if (teacherClassRelationMapper.insertClassTeaRelat(teacherClassRelation) == 1) {
+            return true;
+        }
         return false;
     }
 

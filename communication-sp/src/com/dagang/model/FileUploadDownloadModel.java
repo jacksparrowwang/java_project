@@ -23,6 +23,16 @@ public class FileUploadDownloadModel {
     // 上传人电话
     private String upLoadUserPhone;
 
+    private String md5;
+
+    public String getMd5() {
+        return md5;
+    }
+
+    public void setMd5(String md5) {
+        this.md5 = md5;
+    }
+
     public Long getId() {
         return id;
     }

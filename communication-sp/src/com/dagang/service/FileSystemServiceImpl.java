@@ -69,6 +69,19 @@ public class FileSystemServiceImpl implements FileSystemService {
         return list;
     }
 
+    @Override
+    public boolean isEqualsFile(String md5, String fileName) {
+        if (md5 == null || fileName == null) {
+            return false;
+        }
+        String result =  getMapperBean().queryFileByfileNameAndmd5(fileName,md5);
+        System.out.println("返回的结果"+result);
+        if (result == null || result.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
     private FileManagementMapper getMapperBean() {
         ApplicationContext applicationContext =  new ClassPathXmlApplicationContext("classpath:resource/applicationContext.xml");
         FileManagementMapper fileMapper = (FileManagementMapper) applicationContext.getBean("fileManagementMapper");

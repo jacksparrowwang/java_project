@@ -289,9 +289,9 @@
                     for (var i = 0; i < data.length; ++i) {
                         var type = "";
                         if (data[i].sendType == 1) {
-                            type = data[i].role+"老师:";
+                            type = data[i].role+" 老师:";
                         } else if (data[i].sendType == 0) {
-                            type = "学生:";
+                            type = " 学生:";
                         } else {
                             type = "未知身份:";
                         }

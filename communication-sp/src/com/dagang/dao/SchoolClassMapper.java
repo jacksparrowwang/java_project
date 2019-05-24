@@ -20,4 +20,6 @@ public interface SchoolClassMapper {
                                 @Param("className")String className);
 
     public String queryClassNameById(Integer classId);
+
+    public SchoolClass findClassInfoByClassId(Integer classId);
 }

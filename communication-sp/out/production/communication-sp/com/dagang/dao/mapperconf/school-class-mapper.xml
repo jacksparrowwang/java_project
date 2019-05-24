@@ -30,4 +30,8 @@
     <select id="queryClassNameById" parameterType="integer" resultType="String">
         SELECT className FROM  school_class WHERE classId=#{classId}
     </select>
+
+    <select id="findClassInfoByClassId" parameterType="integer" resultType="SchoolClass">
+        SELECT * FROM school_class WHERE classId=#{classId}
+    </select>
 </mapper>
