@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="notify-web-rpc-client:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="notify-web-rpc-client.war">
+      <element id="artifact" artifact-name="notify-web-rpc-client:war exploded" />
+    </root>
+  </artifact>
+</component>

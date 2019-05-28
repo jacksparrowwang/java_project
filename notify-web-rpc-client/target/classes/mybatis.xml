@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- 别名配置 -->
+    <typeAliases>
+        <!-- 批量配置别名：指定批量定义别名的类包，别名为类名（首字母大小写都可） -->
+        <typeAlias type="com.dagang.model.SchoolClass" alias="SchoolClass"/>
+        <typeAlias type="com.dagang.model.StudentParent" alias="StudentParent"/>
+        <typeAlias type="com.dagang.model.Teacher" alias="Teacher"/>
+        <typeAlias type="com.dagang.model.TeacherClassRelation" alias="TeacherClassRelation"/>
+        <typeAlias type="com.dagang.model.GroupMessagesql" alias="GroupMessagesql"/>
+        <typeAlias type="com.dagang.model.FileUploadDownloadModel" alias="FileUploadDownloadModel"/>
+    </typeAliases>
+    <mappers>
+        <!-- 批量加载映射文件 -->
+
+        <!--逐一加载映射文件-->
+        <mapper resource="mybatis-mapper/school-class-mapper.xml"/>
+        <mapper resource="mybatis-mapper/student-parent-mapper.xml"/>
+        <mapper resource="mybatis-mapper/teacher-mapper.xml"/>
+        <mapper resource="mybatis-mapper/teacher-class-relation-mapper.xml"/>
+        <mapper resource="mybatis-mapper/group-messagesql-mapper.xml"/>
+        <mapper resource="mybatis-mapper/file-management-mapper.xml"/>
+    </mappers>
+</configuration>
