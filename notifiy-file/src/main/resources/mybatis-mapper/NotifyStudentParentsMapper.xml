@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dagang.servicedao.NotifyStudentParentsMapper">
+
+    <select id="queryNameMemberByClassId" parameterType="integer" resultType="java.util.HashMap">
+        SELECT studentName,notify_event FROM student_parent WHERE ClassId=#{classId}
+    </select>
+
+
+    <resultMap id="student_notify" type="com.dagang.servicemodel.NotifyStudentMode">
+        <result jdbcType="INTEGER" javaType="Integer" column="parUid" property="parUid"/>
+        <result jdbcType="VARCHAR" javaType="String" column="studentName" property="studentName"/>
+        <result jdbcType="VARCHAR" javaType="String" column="notify_event" property="notify_event"/>
+    </resultMap>
+
+    <select id="queryUidMemberByClassId" parameterType="integer" resultMap="student_notify">
+        SELECT parUid,notify_event,studentName FROM student_parent WHERE ClassId=#{classId}
+    </select>
+
+    <update id="setNotifyEventByClassId" >
+        UPDATE student_parent SET notify_event=#{notify_event} where parUid=#{parUid}
+    </update>
+
+    <select id="queryEventOfOwnByPhone" parameterType="String" resultType="String">
+        SELECT notify_event FROM student_parent WHERE parentPhoneNumber=#{phone}
+    </select>
+
+    <update id="setEventOfOK" parameterType="String">
+        UPDATE student_parent SET notify_event=#{notify_event} where parentPhoneNumber=#{parentPhoneNumber}
+    </update>
+
+</mapper>

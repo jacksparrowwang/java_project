@@ -75,8 +75,9 @@
         }
     </script>
 </head>
-<body>
-<h1>${requestScope.className} 群成员的添加</h1>
+<body background="../../img/setbackground.jpg" class="back">
+<div style="margin-left: 400px;margin-top: 50px;width: 400px;text-align: center;">
+<h2>${requestScope.className} 群成员的添加</h2>
 <p>输入添加成员的手机号：</p>
 <div>
     <input id="addValue" type="text">
@@ -86,11 +87,25 @@
     <span id="addNameOfPhone" style="color: green;"></span><br>
 </div>
 <input type="button" value="添加" onclick="addMember()">
+<hr>
 
-</body>
 
 <div>
-    <h1>老师加入班级</h1>
+    <h3>老师加入班级</h3>
     <a href="/findClassId" target="_blank">添加班级</a>
 </div>
+    <hr>
+<div>
+    <h3>老师创建班级</h3>
+    <a href="/registerClass" target="_blank">创建班级</a>
+</div>
+</div>
+</body>
 </html>
+
+<style>
+    .back{
+        background-size:cover;
+    }
+</style>
+

@@ -55,7 +55,7 @@ public class WebSocketController {
         String urlUsername = s.split("=")[1];
         try {
             String niName = URLDecoder.decode(urlUsername, "UTF-8");
-// 给每条消息添加上classId进行判断是那个群里的，再进行筛选
+            // 给每条消息添加上classId进行判断是那个群里的，再进行筛选
             //把SessionID和用户名放进集合里面
             username = randomNameUtil.selectName();
             while (map.containsValue(niName)){

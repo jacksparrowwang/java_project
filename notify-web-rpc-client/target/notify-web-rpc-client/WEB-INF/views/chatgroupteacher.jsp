@@ -16,7 +16,7 @@
         <div class="conLeft">
             <ul id="userList">
                 <div>
-                    <input type="button" value="刷新" id="flush">
+                    <input type="button" value="刷新" id="flush" style="width: 100%; text-align: center;min-height: 30px;">
                 </div>
 
             </ul>
@@ -39,6 +39,9 @@
                         <img src="/img/nimingtupian.jpg" height="30px" width="30px" >
                     </a>
                 </div>
+                <div id="notify_image" style="float: left ;margin-left: 20px" >
+                    <img src="/img/blankNotify.jpg" height="30px" width="30px" onclick="notifyShow()" >
+                </div>
                 <div id="setP" style="float: left ;margin-left: 20px" >
                     <img src="/img/shezhichegnyaun.jpg" height="30px" width="30px" onclick="setProperty()">
                 </div>
@@ -50,23 +53,39 @@
                 <button id="fasong" class="sendBtn" onclick="sendMessage()" style="border-radius: 5px">发送</button>
             </div>
         </div>
-        <div id="fileSystem" class="conRightDoc" style="display: none">
+        <div id="fileSystem" class="conRightDoc" style="display: none;  border-right:2px solid navajowhite;">
             <ul>
                 <div>
+                    <h3>文件传输</h3>
+                    <hr>
                     <input type="button" value="刷新" onclick="flushFile()">
                     <form  id="upload" method="post" enctype="multipart/form-data"
                           style="width:auto;">
                         <%--进行文件管理的跳转,这里使用一个fileName进行班级Id的保存 --%>
-                        <input type="text" name="uploadUser" style="display: none" value="${sessionScope.username}">
+                        <input type="text" name="uploadUser" style="display: none" value="${sessionScope.username}" id="userNameOfClient">
                         <input type="text" name="classId" id="classId" style="display: none">
-                        <input type="text" name="fileName" id="fileName">
-                        <input type="file" name="file" id="fileContent" onchange="filePath()">
-                        <input type="button" value="上传" onclick="uploadFile()">
+                        <input type="text" name="fileName" id="fileName" style="margin-top: 10px; width:150px;">
+                        <input type="file" name="file" id="fileContent" onchange="filePath()" style="margin-top: 10px">
+                        <input type="button" value="上传" onclick="uploadFile()" style="margin-top: 10px">
+                        <hr>
                     </form>
                 </div>
             </ul>
             <ul id="fileList">
 
+            </ul>
+        </div>
+        <div id="notify_system" class="conRightDoc" style="display: none">
+            <ul>
+                <div>
+                    <h3>事件通知</h3>
+                    <hr>
+                    <p style="color: #2b542c">请输入需要通知本班级事件：</p>
+                    <input type="text" name="notify_event" id="notify_event" style="height: 50px; width: 150px;">
+                    <input type="button" value="通知大家" id="notifyEveryone" style="margin-left: 78px" onclick="notifyEveryoneEvent()">
+                    <hr>
+                    <input type="button" value="查看通知列表" id="findNotifyList" onclick="queryNotifyList()" style="margin-left: 25px">
+                </div>
             </ul>
         </div>
     </div>
@@ -84,7 +103,13 @@
    }
 
 
+
    function uploadFile() {
+       var para = $("#fileName").val();
+       if (para == "") {
+           alert("上传文件不能为空");
+           return;
+       }
        var form = new FormData(document.getElementById("upload"));
        $.ajax({
            url: "/upLoadFile",
@@ -161,6 +186,15 @@
         }
         ++i;
     }
+    var j = 0;
+    function notifyShow() {
+        if (j%2 == 0) {
+            document.getElementById("notify_system").style.display="block";
+        }else {
+            document.getElementById("notify_system").style.display="none";
+        }
+        ++j;
+    }
 </script>
 
 <script type="text/javascript">
@@ -168,6 +202,49 @@
     // 全局变量，进行记录访问的是哪个班级的
     var changeClassId = 0;
     var changeName = "noclass";
+
+
+    function queryNotifyList() {
+        console.log(changeName);
+        var str =encodeURI(changeClassId+"&"+changeName);
+        console.log(str);
+        window.open("/searchNotify?"+str);
+    }
+
+
+    function notifyEveryoneEvent() {
+        var message_event = $("#notify_event").val();
+        if (message_event == "") {
+            alert("请输入通知内容");
+            return;
+        }
+        $("#notify_event").val("");
+        var userNameOfClientPC =  $("#userNameOfClient").val();
+        $.ajax({
+            scriptCharset: 'utf-8',
+            contentType: "application/json;chartset=utf-8",
+            url: "/notifyEvent",
+            type: "POST",
+            dataType: "JSON",
+            data: JSON.stringify({
+                "classId": changeClassId,
+                "event_message": message_event,
+                "teacherName":userNameOfClientPC
+            }),
+            success: function (data) {
+                if (data == "1") {
+                    alert("已通知本班级各位同学");
+                }else {
+                    alert("通知失败");
+                }
+            },
+            error: function () {
+                alert("发生未知错误");
+            }
+        })
+    }
+
+
 
     function setProperty() {
         console.log(changeName);
@@ -219,9 +296,11 @@
                        console.log(data);
                        //k 为班级ID v为班级名字
                        $("#userList").empty();
+                       var strhead = '<li><div><span style="width: 150px; font-size: 17px; text-align: center;display: block; color: greenyellow">班级</span></div></li>';
+                       $("#userList").append(strhead);
                        $.each(data, function (k, v) {
                            var htmlstr = '<li>'
-                               + '<div><input type="button" id="'+k+'" value="'
+                               + '<div><input style="width: 150px; font-size: 14px; text-align: center;display: block; color: darkolivegreen" type="button" id="'+k+'" value="'
                                + v
                                + '" href="javascript:void(0)" onclick="addGroup(this.id,this.value)"></div>'
                                + '</li>';

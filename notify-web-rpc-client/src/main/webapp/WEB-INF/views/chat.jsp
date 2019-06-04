@@ -69,7 +69,7 @@
     }
 
     webSocket.onopen = function () {
-        setMessageInnerHTML("WebSocket连接成功！")
+        //setMessageInnerHTML("WebSocket连接成功！")
     }
 
     webSocket.onmessage = function (event) {
@@ -90,11 +90,11 @@
                         + '<input type="checkbox" class="styled" id="' + key + '" value="' + key + '" checked>'
                         + '<label for="' + key + '"></label>'
                         + '</div>'
-                        + '<div class="liLeft"><img src="/img/robot2.jpg"/></div>'
+                        // + '<div class="liLeft"></div>'
                         + '<div class="liRight">'
                         + '<span class="intername">' + value + '</span>'
                         + '</div>'
-                        + '</li>'
+                        + '</li>';
 
                 $("#userList").append(htmlstr);
             })

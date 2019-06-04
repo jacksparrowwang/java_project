@@ -17,12 +17,13 @@
     <link rel="stylesheet"  href="../../css/qq.css"/>
 </head>
 <body>
+<input type="text" id="memory" style="display: none">
 <div class="qqBox">
     <div class="context">
         <div class="conLeft">
             <ul id="userList">
                 <div>
-                    <input type="button" value="刷新" id="flush" style="margin-left: 30px">
+                    <input type="button" value="刷新" id="flush" style="width: 100%; text-align: center;min-height: 30px;">
                 </div>
 
             </ul>
@@ -40,11 +41,15 @@
                 <div class="file">
                     <img src="/img/file.jpg" height="30px" width="30px" onclick="fileSelect()">
                 </div>
+                <div style="float: left ;margin-left: 20px">
+                    <img src="/img/notify2.jpg" height="30px" width="30px" onclick="notifyNews()">
+                </div>
                 <div id="setP" style="float: left ;margin-left: 20px" >
                     <a href="/chat" target="_blank">
                         <img src="/img/nimingtupian.jpg" height="30px" width="30px">
                     </a>
                 </div>
+
             </div>
             <div class="RightFoot">
 
@@ -55,6 +60,8 @@
             </div>
         </div>
         <div id="fileSystem" class="conRightDoc" style="display: none">
+            <h4 style="margin-left: 50px">文件传输</h4>
+            <hr>
             <ul>
                 <div>
                     <input type="button" value="刷新" onclick="flushFile()">
@@ -63,12 +70,13 @@
                         <%--进行文件管理的跳转,这里使用一个fileName进行班级Id的保存 --%>
                         <input type="text" name="uploadUser" style="display: none" value="${sessionScope.username}">
                         <input type="text" name="classId" id="classId" style="display: none">
-                        <input type="text" name="fileName" id="fileName">
-                        <input type="file" name="file" id="fileContent" onchange="filePath()">
-                        <input type="button" value="上传" onclick="uploadFile()">
+                        <input type="text" name="fileName" id="fileName" style="margin-top: 10px; width:150px;">
+                        <input type="file" name="file" id="fileContent" onchange="filePath()" style="margin-top: 10px">
+                        <input type="button" value="上传" onclick="uploadFile()" style="margin-top: 10px">
                     </form>
                 </div>
             </ul>
+            <hr>
             <ul  id="fileList">
 
             </ul>
@@ -81,8 +89,20 @@
 
 <script type="text/javascript">
 
+    function notifyNews() {
+        var query = claId;
+        var str = $("#memory").val()+"&"+query;
+        str = encodeURI(str);
+        window.open("/notifyStudentParents?"+str);
+    }
+
     // 文件的上传
     function uploadFile() {
+        var para = $("#fileName").val();
+        if (para == "") {
+            alert("上传文件不能为空");
+            return;
+        }
         var form = new FormData(document.getElementById("upload"));
         $.ajax({
             url: "/upLoadFile",
@@ -209,6 +229,7 @@
                 } else {
                     alert("发送失败");
                 }
+                isExistNotify(); // 发送消息时候进行检查，是否有通知消息
             },
             error : function () {
                 alert("请求错误");
@@ -234,12 +255,15 @@
                         console.log(data);
                         //返回的是字符串数组
                         $("#userList").empty();
+                        var strhead = '<li><div><span style="width: 150px; font-size: 17px; text-align: center;display: block; color: greenyellow">姓名</span></div></li>';
+                        $("#userList").append(strhead);
                         for (var i = 0; i < data.length; ++i) {
-                            var htmlstr = '<li><div><input type="button" value="' + data[i] + '" style="width: 100%; text-align: center; background: bisque"></div></li>';
+                            var htmlstr = '<li><div><span style="width: 150px; font-size: 14px; text-align: center;display: block; color: #d0e9c6">' + data[i] + ' </span></div></li>';
                             $("#userList").append(htmlstr);
                         }
                         addGroup();
                         setClassNameOnChat(${requestScope.classId});
+                        isExistNotify();  // 刷新页面时候进行检查，是否有新的消息
                     }
                 },
                 error : function () {
@@ -248,6 +272,29 @@
             })
         })
     });
+
+    function isExistNotify() {
+        $.ajax({
+            scriptCharset: 'utf-8',
+            contentType: "application/json;chartset=utf-8",
+            url: "/isExistNotify",
+            type: "GET",
+            dataType: "JSON",
+            success: function (data) {
+                if (data == "1") {
+                    if (confirm("您有新的通知消息，请尽快处理")) {
+                        notifyNews();
+                    }
+                    else {
+                        alert("老师通知信息，记得处理哦！");
+                    }
+                }
+            },
+            error: function () {
+                alert("发生未知错误");
+            }
+        });
+    }
 
     function setClassNameOnChat(c) {
         $.ajax({
@@ -260,10 +307,9 @@
                 classId : c
             },
             success : function (data) {
-                alert(data+"className");
-                // TODO 需要进行修改样式
                 var htm = ' <il style="right: 50px">'+data+'</il>';
                 $("#headName").append(htm);
+                $("#memory").val(data);
             },
             error : function () {
                 alert("发生错误");
@@ -307,8 +353,6 @@
                             setMessageInnerHTML(rec);
                         }
                     }
-                }else {
-                    alert("没有新的消息")
                 }
             },
             error : function () {

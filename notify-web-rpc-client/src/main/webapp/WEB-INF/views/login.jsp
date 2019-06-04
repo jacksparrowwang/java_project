@@ -75,24 +75,6 @@
         <div class="content-login-description">没有账户？</div>
         <div><a class="content-login-link" href="/register">注册</a></div>
     </div>
-<%--<form action="/communication" method="post" onsubmit="return check()">  --%>
-    <%--用户名：<input type="text" id="phoneNumber" name="phoneNumber"/><span id="userPmg" style="color:red;"></span><br><br> --%>
-    <%--密 码 ：<input type="password" id="password" name="password"/><span id="pwd" style="color:red;"></span><br>--%>
-    <%--身  份  :<input type="radio" name="identity" value="0" checked>学生家长--%>
-    <%--<input type="radio" name="identity" value="1">老师<br>--%>
-    <%--验证码：<input type="text" name="clientCode">--%>
-    <%--<img id="code" src="/validateCode" alt=""><a href="javascript:refreshCode();">看不清，刷新验证码</a><br>--%>
-    <%--<input type="submit" value="登陆"/>--%>
-    <%--<input type="button" value="注册" onclick="location.href='http://localhost:8080/register'"/>--%>
-<%--</form>  --%>
- 
-<%--<form id="loginForm" action="/login" method="post">--%>
-    <%--用户名 <input type="text" name="username"><br/>--%>
-    <%--密码<input type="text" name="password"><br/>--%>
-    <%--身份:<input type="radio" name="identity" value="1">老师--%>
-    <%--<input type="radio" name="identity" value="0" checked>学生家长<br/>--%>
-    <%--<input type="submit" value="登录"> <button><a href="http://localhost:8080/register"></a>注册</button>--%>
-<%--</form>--%>
     <script src="../../js/common_form_test.js"></script>
 </body>
 </html>

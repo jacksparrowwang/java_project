@@ -23,4 +23,6 @@ public interface StudentParentMapper {
 
     public String[] queryUserNameByClassId(Integer classId);
 
+    public String queryNotifyEventByPhone(String parentPhoneNumber);
+
 }

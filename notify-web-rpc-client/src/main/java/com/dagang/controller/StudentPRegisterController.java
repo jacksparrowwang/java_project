@@ -19,9 +19,7 @@ public class StudentPRegisterController {
 
     @RequestMapping("/studentRegister")
     public String studentRegister(HttpServletRequest request) {
-        // 参数校验
 
-        // 这里要进行判断是否学生注册成功
         String studentName =  request.getParameter("studentName");
         String parentPhoneNumber =  request.getParameter("parentPhoneNumber");
         String password =  request.getParameter("password");
@@ -34,6 +32,7 @@ public class StudentPRegisterController {
         studentParent.setPassword(password);
         studentParent.setGender(Integer.parseInt(gender));
         studentParent.setStudentDesc(studentDesc);
+        studentParent.setNotify_event("0"); // 用字符0标识无事件
 
         boolean result = studentPService.createStudentP(studentParent);
         if (result) {

@@ -8,8 +8,9 @@
        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
     <dubbo:application name="dubbo-provider"/>
     <dubbo:registry address="zookeeper://127.0.0.1:2181"/>
-    <dubbo:monitor protocol="registry" />
+    <!--监控中心-->
+    <!--<dubbo:monitor protocol="registry" />-->
     <dubbo:provider cluster="failfast"/>
     <bean id="notifyService" class="com.dagang.serviceImp.NotifyServiceImp"/>
-    <dubbo:service interface="com.dagang.service.NotifyService" ref="notifyService"/>
+    <dubbo:service interface="com.dagang.service.NotifyService" ref="notifyService" version="1.0" timeout="5000"/>
 </beans>

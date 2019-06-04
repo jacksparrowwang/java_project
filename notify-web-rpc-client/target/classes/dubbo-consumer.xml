@@ -6,9 +6,10 @@
 
     <dubbo:application name="dubbo-consumer"/>
     <dubbo:registry  protocol="zookeeper" address="zookeeper://127.0.0.1:2181" />
-    <dubbo:monitor protocol="registry" />
+    <!--关闭监控中心-->
+    <!--<dubbo:monitor protocol="registry" />-->
     <dubbo:consumer check="false"/>
 
     <!-- 导入dubbo配置 -->
-    <dubbo:reference id="notifyService" interface="com.dagang.service.NotifyService"/>
+    <dubbo:reference id="notifyService" interface="com.dagang.service.NotifyService" cluster="failfast" version="1.0" timeout="20000"/>
 </beans>

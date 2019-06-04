@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dagang.servicedao.NotifyDaoMapper">
+
+    <sql id="notify">
+        (time_eventID,event_message,classId,teacherName)
+    </sql>
+
+    <insert id="insertNotifyEvent" parameterType="NotifyModel">
+        INSERT INTO notify_event <include refid="notify"/> VALUES (#{time_eventID},#{event_message},#{classId},#{teacherName})
+    </insert>
+
+    <select id="queryInfoByClassId" parameterType="integer" resultType="NotifyModel">
+        SELECT * FROM notify_event WHERE classId=#{classId}
+    </select>
+</mapper>

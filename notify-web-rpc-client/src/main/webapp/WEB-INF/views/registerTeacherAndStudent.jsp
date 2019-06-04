@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
-<head>
+<head >
     <title>注册</title>
     <script text="text/javascript">
         function checkStudentParentInfo(){
@@ -85,7 +85,7 @@
         }
     </script>
 </head>
-<body>
+<body background="../../img/setbackground.jpg" class="back">
 <div style="text-align: center;">
 <div>
     <input type="button" value="学生家长注册" onclick="chengeStudent()"/>
@@ -156,5 +156,7 @@
 </html>
 
 <style>
-
+    .back{
+        background-size:cover;
+    }
 </style>

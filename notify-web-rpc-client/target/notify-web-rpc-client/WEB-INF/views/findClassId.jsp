@@ -143,7 +143,7 @@
         })
     </script>
 </head>
-<body>
+<body background="../../img/setbackground.jpg" class="back">
 
 <div style="text-align: center;margin-top: 50px;">
     <h1>查询添加班级</h1>
@@ -198,3 +198,8 @@
 </div>
 </body>
 </html>
+<style>
+    .back{
+        background-size:cover;
+    }
+</style>

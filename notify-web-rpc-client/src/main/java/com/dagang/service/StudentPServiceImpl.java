@@ -146,4 +146,17 @@ public class StudentPServiceImpl implements StudentPService{
         System.out.println(result);
         return result;
     }
+
+    @Override
+    public boolean isExistNewNotify(String phone) {
+        if (phone == null || phone.isEmpty()) {
+            System.out.println("isExistNewNotify: parameter is null");
+            return false;
+        }
+        String eventId = studentParentMapper.queryNotifyEventByPhone(phone.trim());
+        if (eventId == null || "0".equals(eventId) || eventId.isEmpty()) {
+            return true;
+        }
+        return false;
+    }
 }

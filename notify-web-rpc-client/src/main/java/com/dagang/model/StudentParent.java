@@ -35,14 +35,14 @@ public class StudentParent {
     /*学生的描述*/
     private String studentDesc;
 
-    private Integer notifyFlag;
+    private String notify_event;
 
-    public Integer getNotifyFlag() {
-        return notifyFlag;
+    public String getNotify_event() {
+        return notify_event;
     }
 
-    public void setNotifyFlag(Integer notifyFlag) {
-        this.notifyFlag = notifyFlag;
+    public void setNotify_event(String notify_event) {
+        this.notify_event = notify_event;
     }
 
     public Integer getId() {
@@ -138,7 +138,7 @@ public class StudentParent {
                 ", gender=" + gender +
                 ", idType=" + idType +
                 ", studentDesc='" + studentDesc + '\'' +
-                ", notifyFlag=" + notifyFlag +
+                ", notify_event='" + notify_event + '\'' +
                 '}';
     }
 }

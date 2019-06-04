@@ -27,4 +27,6 @@ public interface StudentPService {
     public boolean setClassIdByPhone(String phone, Integer classId);
 
     public String[] getClassMember(Integer classId);
+
+    public boolean isExistNewNotify(String phone);
 }

@@ -5,12 +5,12 @@
 <mapper namespace="com.dagang.dao.StudentParentMapper">
 
     <sql id="student">
-        (datetime,parUid,ClassId,parentPhoneNumber,password,studentName,gender,idType,studentDesc)
+        (datetime,parUid,ClassId,parentPhoneNumber,password,studentName,gender,idType,studentDesc,notify_event)
     </sql>
 
     <insert id="insert" parameterType="StudentParent">
         INSERT INTO student_parent <include refid="student"/> VALUES
-        (#{datetime},#{parUid},#{ClassId},#{parentPhoneNumber},#{password},#{studentName},#{gender},#{idType},#{studentDesc})
+        (#{datetime},#{parUid},#{ClassId},#{parentPhoneNumber},#{password},#{studentName},#{gender},#{idType},#{studentDesc},#{notify_event})
     </insert>
 
     <select id="findStudentPByPhoneNumber" parameterType="String" resultType="StudentParent">
@@ -34,6 +34,10 @@
 
     <select id="queryUserNameByClassId" parameterType="integer" resultType="String">
         SELECT studentName FROM student_parent WHERE classId=#{classId}
+    </select>
+
+    <select id="queryNotifyEventByPhone" parameterType="String" resultType="String">
+        SELECT notify_event FROM student_parent WHERE parentPhoneNumber=#{parentPhoneNumber}
     </select>
 
 </mapper>
